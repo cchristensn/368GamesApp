@@ -1,6 +1,8 @@
 import plotly.express as px
 import pandas as pd
 import streamlit as st
+import seaborn as sns
+import matplotlib.pyplot as plt
 
 st.title("Best Games on BGG")
 
@@ -17,25 +19,38 @@ warDf = gameDf[gameDf['War Rank'].notna()]
 
 st.subheader('Rating by Complexity Plots')
 st.text('Use arrow keys to navigate tabs')
-tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9 = st.tabs(['Rating x Complexity', 'Abstract Games',
+tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9 = st.tabs(['Overall', 'Abstract Games',
                                                                 'Customizable Games', 'Thematic Games',
                                                                 'Family Games', 'Children Games',
                                                                 'Party Games', "Strategy Games", 'War Games'])
 
+
+
+
 with tab1:
-    compRate = px.scatter(data_frame=gameDf, x='Rating', y="Complexity", hover_data=['Name', 'Year', 'Overall Rank'])
+    gamePlot = px.scatter(data_frame=gameDf, x='Rating', y="Complexity", hover_data=['Name', 'Year', 
+                                                                                     'Overall Rank'])
+    
+    gamePlot.update_xaxes(range=[5.2, 8.7])
+    gamePlot.update_yaxes(range=[.8, 5])
+    
     st.header('Overall')
-    st.plotly_chart(compRate)
+    st.plotly_chart(gamePlot)
+    
 
 with tab2:
     absPlot = px.scatter(data_frame=absDf, x='Rating', y="Complexity", hover_data=['Name', 'Year', 
                                                                                      'Overall Rank', 'Abstract Rank'])
+    absPlot.update_xaxes(range=[5.2, 8.7])
+    absPlot.update_yaxes(range=[.8, 5])
     st.header('Abstract')
     st.plotly_chart(absPlot)
 
 with tab3:
     custPlot = px.scatter(data_frame=custDf, x='Rating', y="Complexity", hover_data=['Name', 'Year', 
                                                                                      'Overall Rank', 'Customizable Rank'])
+    custPlot.update_xaxes(range=[5.2, 8.7])
+    custPlot.update_yaxes(range=[.8, 5])
     st.header('Customizable')
     st.plotly_chart(custPlot)
 
@@ -43,35 +58,47 @@ with tab3:
 with tab4:
     themePlot = px.scatter(data_frame=themeDf, x='Rating', y="Complexity", hover_data=['Name', 'Year', 
                                                                                      'Overall Rank', 'Thematic Rank'])
+    themePlot.update_xaxes(range=[5.2, 8.7])
+    themePlot.update_yaxes(range=[.8, 5])
     st.header('Thematic')
     st.plotly_chart(themePlot)
 
 with tab5:
     famPlot = px.scatter(data_frame=famDf, x='Rating', y="Complexity", hover_data=['Name', 'Year', 
                                                                                      'Overall Rank', 'Family Rank'])
+    famPlot.update_xaxes(range=[5.2, 8.7])
+    famPlot.update_yaxes(range=[.8, 5])
     st.header('Family')
     st.plotly_chart(famPlot)
 
 with tab6:
     childPlot = px.scatter(data_frame=childDf, x='Rating', y="Complexity", hover_data=['Name', 'Year', 
                                                                                      'Overall Rank', 'Children Rank'])
+    childPlot.update_xaxes(range=[5.2, 8.7])
+    childPlot.update_yaxes(range=[.8, 5])
     st.header('Children')
     st.plotly_chart(childPlot)
 
 with tab7:
     partyPlot = px.scatter(data_frame=partyDf, x='Rating', y="Complexity", hover_data=['Name', 'Year', 
                                                                                      'Overall Rank', 'Party Rank'])
+    partyPlot.update_xaxes(range=[5.2, 8.7])
+    partyPlot.update_yaxes(range=[.8, 5])
     st.header('Party')
     st.plotly_chart(partyPlot)
 
 with tab8:
     stratPlot = px.scatter(data_frame=stratDf, x='Rating', y="Complexity", hover_data=['Name', 'Year', 
                                                                                      'Overall Rank', 'Strategy Rank'])
+    stratPlot.update_xaxes(range=[5.2, 8.7])
+    stratPlot.update_yaxes(range=[.8, 5])
     st.header('Strategy')
     st.plotly_chart(stratPlot)
 
 with tab9:
     warPlot = px.scatter(data_frame=warDf, x='Rating', y="Complexity", hover_data=['Name', 'Year', 
                                                                                      'Overall Rank', 'War Rank'])
+    warPlot.update_xaxes(range=[5.2, 8.7])
+    warPlot.update_yaxes(range=[.8, 5])
     st.header('War')
     st.plotly_chart(warPlot)
