@@ -18,24 +18,37 @@ stratDf = gameDf[gameDf['Strategy Rank'].notna()]
 warDf = gameDf[gameDf['War Rank'].notna()]
 
 st.subheader('Rating by Complexity Plots')
-st.text('Use arrow keys to navigate tabs')
+st.markdown('Use arrow keys to navigate tabs')
 tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9 = st.tabs(['Overall', 'Abstract Games',
                                                                 'Customizable Games', 'Thematic Games',
                                                                 'Family Games', 'Children Games',
                                                                 'Party Games', "Strategy Games", 'War Games'])
 
+with st.sidebar:
+    game = st.text_input('Enter a game name', value='Pandemic')
+    subGameDf = gameDf[gameDf['Name'].str.contains(game)].dropna(axis=1, how='all')
+    st.dataframe(subGameDf)
 
 
 
 with tab1:
-    gamePlot = px.scatter(data_frame=gameDf, x='Rating', y="Complexity", hover_data=['Name', 'Year', 
-                                                                                     'Overall Rank'])
     
-    gamePlot.update_xaxes(range=[5.2, 8.7])
-    gamePlot.update_yaxes(range=[.8, 5])
-    
+    fig, ax = plt.subplots(figsize=(8, 8))
+
+    sns.scatterplot(data=absDf, x='Rating', y='Complexity', label='Abstract')
+    sns.scatterplot(data=custDf, x='Rating', y='Complexity', label='Customizable')
+    sns.scatterplot(data=themeDf, x='Rating', y='Complexity', label='Thematic')
+    sns.scatterplot(data=famDf, x='Rating', y='Complexity', label='Family')
+    sns.scatterplot(data=childDf, x='Rating', y='Complexity', label='Children')
+    sns.scatterplot(data=partyDf, x='Rating', y='Complexity', label='Party')
+    sns.scatterplot(data=stratDf, x='Rating', y='Complexity', label='Strategy')
+    sns.scatterplot(data=warDf, x='Rating', y='Complexity', label='War')
+
+    ax.legend()
     st.header('Overall')
-    st.plotly_chart(gamePlot)
+    st.markdown('Hover data avalalible on other tabs')
+    st.pyplot(fig)
+    
     
 
 with tab2:
