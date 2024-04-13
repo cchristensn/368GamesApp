@@ -26,8 +26,12 @@ tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9 = st.tabs(['Overall', 'Abst
 
 with st.sidebar:
     game = st.text_input('Enter a game name', value='Pandemic')
+    if st.button('Random'):
+        game = gameDf.sample().iloc[0,0]
+        
+
     subGameDf = gameDf[gameDf['Name'].str.contains(game)].dropna(axis=1, how='all')
-    if subGameDf.empty():
+    if subGameDf.empty:
         st.markdown('Game not found')
     else:
         st.dataframe(subGameDf)
@@ -118,3 +122,7 @@ with tab9:
     warPlot.update_yaxes(range=[.8, 5])
     st.header('War')
     st.plotly_chart(warPlot)
+
+
+
+
