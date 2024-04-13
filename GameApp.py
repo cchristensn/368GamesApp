@@ -17,7 +17,7 @@ partyDf = gameDf[gameDf['Party Rank'].notna()]
 stratDf = gameDf[gameDf['Strategy Rank'].notna()]
 warDf = gameDf[gameDf['War Rank'].notna()]
 
-st.subheader('Rating by Complexity Plots')
+st.header('Rating by Complexity Plots')
 st.markdown('Use arrow keys to navigate tabs')
 tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9 = st.tabs(['Overall', 'Abstract Games',
                                                                 'Customizable Games', 'Thematic Games',
@@ -52,7 +52,7 @@ with tab1:
     sns.scatterplot(data=warDf, x='Rating', y='Complexity', label='War')
 
     ax.legend()
-    st.header('Overall')
+    st.subheader('Overall')
     st.markdown('Hover data avalalible on other tabs')
     st.pyplot(fig)
     
@@ -63,7 +63,7 @@ with tab2:
                                                                                      'Overall Rank', 'Abstract Rank'])
     absPlot.update_xaxes(range=[5.2, 8.7])
     absPlot.update_yaxes(range=[.8, 5])
-    st.header('Abstract')
+    st.subheader('Abstract')
     st.plotly_chart(absPlot)
 
 with tab3:
@@ -71,7 +71,7 @@ with tab3:
                                                                                      'Overall Rank', 'Customizable Rank'])
     custPlot.update_xaxes(range=[5.2, 8.7])
     custPlot.update_yaxes(range=[.8, 5])
-    st.header('Customizable')
+    st.subheader('Customizable')
     st.plotly_chart(custPlot)
 
 
@@ -80,7 +80,7 @@ with tab4:
                                                                                      'Overall Rank', 'Thematic Rank'])
     themePlot.update_xaxes(range=[5.2, 8.7])
     themePlot.update_yaxes(range=[.8, 5])
-    st.header('Thematic')
+    st.subheader('Thematic')
     st.plotly_chart(themePlot)
 
 with tab5:
@@ -88,7 +88,7 @@ with tab5:
                                                                                      'Overall Rank', 'Family Rank'])
     famPlot.update_xaxes(range=[5.2, 8.7])
     famPlot.update_yaxes(range=[.8, 5])
-    st.header('Family')
+    st.subheader('Family')
     st.plotly_chart(famPlot)
 
 with tab6:
@@ -96,7 +96,7 @@ with tab6:
                                                                                      'Overall Rank', 'Children Rank'])
     childPlot.update_xaxes(range=[5.2, 8.7])
     childPlot.update_yaxes(range=[.8, 5])
-    st.header('Children')
+    st.subheader('Children')
     st.plotly_chart(childPlot)
 
 with tab7:
@@ -104,7 +104,7 @@ with tab7:
                                                                                      'Overall Rank', 'Party Rank'])
     partyPlot.update_xaxes(range=[5.2, 8.7])
     partyPlot.update_yaxes(range=[.8, 5])
-    st.header('Party')
+    st.subheader('Party')
     st.plotly_chart(partyPlot)
 
 with tab8:
@@ -112,7 +112,7 @@ with tab8:
                                                                                      'Overall Rank', 'Strategy Rank'])
     stratPlot.update_xaxes(range=[5.2, 8.7])
     stratPlot.update_yaxes(range=[.8, 5])
-    st.header('Strategy')
+    st.subheader('Strategy')
     st.plotly_chart(stratPlot)
 
 with tab9:
@@ -120,9 +120,26 @@ with tab9:
                                                                                      'Overall Rank', 'War Rank'])
     warPlot.update_xaxes(range=[5.2, 8.7])
     warPlot.update_yaxes(range=[.8, 5])
-    st.header('War')
+    st.subheader('War')
     st.plotly_chart(warPlot)
 
 
 
+st.header('Stats by Year')
+year = st.slider("Choose a year:", 1980, 2024)
+st.markdown("'1980' means 1980 and earlier")
+if year == 1980:
+    yearDf=gameDf[gameDf['Year']<1981]
+else:
+    yearDf = gameDf[gameDf['Year']==year]
 
+st.subheader('Complexity Distribution')
+complexityPlot = px.box(data_frame=yearDf, x = 'Complexity')
+complexityPlot.update_xaxes(range=[1, 5])
+st.plotly_chart(complexityPlot)
+
+
+st.subheader('Rating Distribution')
+ratingPlot = px.box(data_frame=yearDf, x = 'Rating')
+ratingPlot.update_xaxes(range=[5.5, 9])
+st.plotly_chart(ratingPlot)
