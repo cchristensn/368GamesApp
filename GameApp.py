@@ -27,7 +27,10 @@ tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9 = st.tabs(['Overall', 'Abst
 with st.sidebar:
     game = st.text_input('Enter a game name', value='Pandemic')
     subGameDf = gameDf[gameDf['Name'].str.contains(game)].dropna(axis=1, how='all')
-    st.dataframe(subGameDf)
+    if subGameDf.empty():
+        st.markdown('Game not found')
+    else:
+        st.dataframe(subGameDf)
 
 
 
