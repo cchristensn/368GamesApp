@@ -5,6 +5,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 
 st.title("Best Games on BGG")
+st.image('PoweredByBGG.png')
 
 url ='https://github.com/cchristensn/datacuration/blob/main/GameRanks.csv/?raw=True'
 gameDf = pd.read_csv(url, index_col=0)
